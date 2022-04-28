@@ -41,6 +41,12 @@ import { MutationQueue } from './mutation_queue';
 import { PersistencePromise } from './persistence_promise';
 import { PersistenceTransaction } from './persistence_transaction';
 import { RemoteDocumentCache } from './remote_document_cache';
+import {SortedMap} from '../util/sorted_map';
+
+class LocalDocumentsResult {
+  constructor(readonly batchId: number, readonly documents: SortedMap<DocumentKey, Document>) {
+  }
+}
 
 /**
  * A readonly view of the local state of all documents we're tracking (i.e. we
@@ -156,6 +162,10 @@ export class LocalDocumentsView {
         offset
       );
     }
+  }
+
+  getNextDocuments(collectionGroup: string, offset: IndexOffset, count: number): LocalDocumentsResult {
+
   }
 
   private getDocumentsMatchingDocumentQuery(
